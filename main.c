@@ -14,7 +14,7 @@ int add_el(int pload);
 int del_el(void);
 
 //  Сравнение нагрузок двух элементов списка.
-int pload_cmd(void);
+int pload_cmd(int pload);
 
 //установка укозателя на найденный элемен
 int find_el(int pload);
@@ -35,12 +35,12 @@ static el_t *top=NULL;
 static el_t *curr=NULL;
 
 int main(){
-
-    add_el(1);
-    add_el(11);
+    add_el(4);
+    add_el(5);
     add_el(12);
     add_el(13);
     look_add_el();
+    pload_cmd(4);
 
 }
 
@@ -76,19 +76,13 @@ int del_el(void){
     printf("Хотим удалить элемент %d\n");
     return 0;
 }
-int pload_cmp (el_t* el1, el_t* el2){
-    printf("Хотим сравнить нагрузки двух элементов");
-        if(el1->pload!=el2->pload){
-            printf("Элемент не совпадает");
-            return -1;
-                                  }
-        else(el1->pload==el2->pload);
-        {
-            printf("элемент совпдает");
-            return 0;
-        }
 
-}
+
+int pload_cmp(void) {
+    printf("Хотим сравнить нагрузки двух элементов\n");
+    int el1, el2;
+    el1
+
 
 int find_el(int pload) {
    printf("Хотим найти элемент %d\n", pload);
