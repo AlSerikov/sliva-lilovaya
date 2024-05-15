@@ -90,15 +90,24 @@ int pload_cmp (el_t* el1, el_t* el2){
 
 }
 
-int find_el(int pload){
-    printf("Хотим найти элемент %u\n" ,pload);
-    if (top==NULL){
-        printf("Список пуст");
-        return -1;}
+int find_el(int pload) {
+   printf("Хотим найти элемент %d\n", pload);
+   if (top == NULL) {
+       printf("Список пуст, действие невозможно\n");
+       return -1;
+   }
 
-    for (curr=top; )
-    return 0;
-}
+   for (curr = top; curr != NULL; curr = curr->next)
+     {
+       if (curr->pload == pload)
+       {
+           printf("Элемент найден\n");
+           return 0;
+       }
+     }
+return 0;
+   }
+
 
 
 int get_el(int* pload){
