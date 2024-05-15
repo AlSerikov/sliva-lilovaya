@@ -73,11 +73,21 @@ int del_el(void){
     printf("Хотим удалить элемент %d\n");
     return 0;
 }
+int pload_cmp (void){
+    printf("sravnenie nagruzki");
+    return 0;
+}
 
 int find_el(int pload){
     printf("Хотим найти элемент %u\n" ,pload);
+    if (top==NULL)
+    {printf("pusto");
+        return -1;}
+
+    for (curr=top; pload)
     return 0;
 }
+
 
 int get_el(int* pload){
     printf("Хотим вернуть элемент %d\n" ,pload);
