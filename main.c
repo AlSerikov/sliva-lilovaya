@@ -13,9 +13,6 @@ int add_el(int pload);
 //* удаляет элемент на который указывает внтренний укозатель, возвращает 0 при успехе, -1 при неудаче.
 int del_el(void);
 
-//  Сравнение нагрузок двух элементов списка.
-int pload_cmd(int pload);
-
 //установка укозателя на найденный элемен
 int find_el(int pload);
 
@@ -31,16 +28,21 @@ int ress_el(void);
 //показать все элементы
 int look_add_el();
 
+//Сравнение двух значений pload
+int pload_cmp(int pload1, int pload2);
+
 static el_t *top=NULL;
 static el_t *curr=NULL;
 
 int main(){
-    add_el(4);
-    add_el(5);
+
+    add_el(1);
+    add_el(11);
     add_el(12);
     add_el(13);
     look_add_el();
-    pload_cmd(4);
+    pload_cmp(4,5);
+    pload_cmp(4,4);
 
 }
 
@@ -72,37 +74,25 @@ int look_add_el(void) {
 
    return 0;}
 
+int pload_cmp(int pload1, int pload2){
+    if(pload1 == pload2){
+        printf("Значения pload %d равны друг другу\n");
+        return 0;
+    } else {
+        printf("Значения pload %d и %d не равны\n", pload1, pload2);
+        return -1;
+    }
+}
+
 int del_el(void){
     printf("Хотим удалить элемент %d\n");
     return 0;
 }
 
-
-int pload_cmp(void) {
-    printf("Хотим сравнить нагрузки двух элементов\n");
-    int el1, el2;
-    el1
-
-
-int find_el(int pload) {
-   printf("Хотим найти элемент %d\n", pload);
-   if (top == NULL) {
-       printf("Список пуст, действие невозможно\n");
-       return -1;
-   }
-
-   for (curr = top; curr != NULL; curr = curr->next)
-     {
-       if (curr->pload == pload)
-       {
-           printf("Элемент найден\n");
-           return 0;
-       }
-     }
-return 0;
-   }
-
-
+int find_el(int pload){
+    printf("Хотим найти элемент %u\n" ,pload);
+    return 0;
+}
 
 int get_el(int* pload){
     printf("Хотим вернуть элемент %d\n" ,pload);
