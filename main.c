@@ -31,6 +31,12 @@ int look_add_el();
 //Сравнение двух значений pload
 int pload_cmp(int pload1, int pload2);
 
+//Сравнение через указатель    pload_cmp2(curr->pload, curr->next->pload, curr); почемуто работает только так ????
+int pload_cmp2(int pload_currcmp, int pload_curr, int currcmp);
+
+// Сохранение curr для сравнения
+int curr_save();
+
 static el_t *top=NULL;
 static el_t *curr=NULL;
 
@@ -38,11 +44,29 @@ int main(){
 
     add_el(1);
     add_el(11);
+    add_el(11);
+    add_el(11);
     add_el(12);
     add_el(13);
     look_add_el();
-    pload_cmp(4,5);
-    pload_cmp(4,4);
+    find_el(11);
+    curr_save();
+    next_el();
+    pload_cmp2(curr->pload, curr->next->pload, curr);
+    add_el(4);
+    add_el(5);
+    add_el(6);
+    add_el(6);
+    add_el(7);
+    add_el(8);
+    find_el(6);
+    look_add_el();
+    curr_save();
+    next_el();
+    next_el();
+    pload_cmp2(curr->pload, curr->next->pload, curr);
+    // pload_cmp(4,5);
+   // pload_cmp(4,4);
 
 }
 
@@ -58,7 +82,7 @@ int add_el(int pload){
       }
       else // top!=NULL
       {
-          for(curr=top; curr->next!=NULL; curr=curr->next){printf(".");}
+          for(curr=top; curr->next!=NULL; curr=curr->next);
           curr->next=malloc(sizeof (el_t));
           curr=curr->next;
           curr->next=NULL;
@@ -70,7 +94,7 @@ int add_el(int pload){
 int look_add_el(void) {
    printf("Элементы в списке:\n");
    for(el_t* trans=top;trans!=NULL;  trans=trans->next)
-       printf("%d\n", trans->pload);
+       printf("%d:  %p\n", trans->pload, trans);
 
    return 0;}
 
@@ -84,14 +108,69 @@ int pload_cmp(int pload1, int pload2){
     }
 }
 
+int curr_save()
+{
+   int currcmp;
+    if(curr==NULL)
+    {
+        printf("нечего сохронять \n");
+        return 0;
+    }
+    else
+    {
+      currcmp=curr;
+      printf("сохранено значение:, curr %p\n", curr );
+      return 0;
+    }
+ }
+
+int pload_cmp2(int pload_currcmp, int pload_curr, int currcmp)
+{
+    if (currcmp == NULL)
+    {
+        printf("Нет сохраненного указателя для сравнения\n");
+        return -1;
+    }
+    if (curr == NULL)
+    {
+        printf("Указатель отсутствует\n");
+        return -2;
+    }
+    else
+    {
+        if (pload_currcmp == pload_curr)
+        {
+            printf("Значения нагрузки равны\n");
+            return 0;
+        }
+        else
+        {
+            printf("Значения нагрузки не равны\n");
+            return -1;
+        }
+    }
+}
 int del_el(void){
     printf("Хотим удалить элемент %d\n");
     return 0;
 }
 
-int find_el(int pload){
-    printf("Хотим найти элемент %u\n" ,pload);
-    return 0;
+int find_el(int pload) {
+   printf("Хотим найти элемент %d\n", pload);
+   if (top == NULL) {
+       printf("Список пуст, поиск невозможен\n");
+       return -1;
+   }
+
+   for (curr = top; curr != NULL; curr = curr->next) {
+       if (curr->pload == pload) {
+           printf("Элемент найден:указвтель %p  нагрузка %d \n", curr, pload);
+           return 0;
+       }
+   }
+
+   printf("Элемент не найден\n");
+   return -1;
 }
 
 int get_el(int* pload){
@@ -100,8 +179,16 @@ int get_el(int* pload){
 }
 
 int next_el(void){
-    printf("Хотим перейти на следующий элемент %d\n");
+    if(curr->next==NULL)
+    {
+       printf("некуда переходить");
+        return -1;
+    }
+    else {
+        curr=curr->next;
+    printf("перешли на следующий элемент curr:%p, \n",curr);
     return 0;
+    }
 }
 
 
